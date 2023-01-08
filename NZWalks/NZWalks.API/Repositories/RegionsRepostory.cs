@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NZWalks.API.Data;
 using NZWalks.API.Models.Domain;
-using System.Security.Cryptography.X509Certificates;
+using NZWalks.API.Repositories.Interfaces;
 
 namespace NZWalks.API.Repositories
 {

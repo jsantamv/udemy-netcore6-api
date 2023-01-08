@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using NZWalks.API.Models.Domain;
 using NZWalks.API.Models.DTO;
-using NZWalks.API.Repositories;
+using NZWalks.API.Repositories.Interfaces;
 using System.Runtime.CompilerServices;
 
 namespace NZWalks.API.Controllers
