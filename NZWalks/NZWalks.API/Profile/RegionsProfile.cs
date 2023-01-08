@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Routing.Constraints;
+using NZWalks.API.Models.DTO.Region;
 
 namespace NZWalks.API.Profile
 {
@@ -7,7 +8,7 @@ namespace NZWalks.API.Profile
     {
         public RegionsProfile()
         {
-            CreateMap<Models.Domain.Region, Models.DTO.Region>()
+            CreateMap<Models.Domain.Region, Region>()
                 .ReverseMap();
         }
     }

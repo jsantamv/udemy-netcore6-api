@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using NZWalks.API.Models.Domain;
-using NZWalks.API.Models.DTO;
+using NZWalks.API.Models.DTO.Region;
 using NZWalks.API.Repositories.Interfaces;
-using System.Runtime.CompilerServices;
 
 namespace NZWalks.API.Controllers
 {
@@ -28,7 +25,7 @@ namespace NZWalks.API.Controllers
 
             //Con esto evitamos hacer el mapeo a mano
             // Utilizamos AutoMapper que se injecta desde program
-            var dto = mapper.Map<List<Models.DTO.Region>>(regions);
+            var dto = mapper.Map<List<Region>>(regions);
             return Ok(dto);
         }
 
@@ -38,7 +35,7 @@ namespace NZWalks.API.Controllers
         public async Task<IActionResult> GetRegionAsync(Guid id)
         {
             var region = await regionsRepostory.GetAsync(id);
-            var dto = mapper.Map<Models.DTO.Region>(region);
+            var dto = mapper.Map<Models.DTO.Region.Region>(region);
             return Ok(dto);
         }
 
