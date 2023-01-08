@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using NZWalks.API.Models.Domain;
+using NZWalks.API.Models.DTO;
 using NZWalks.API.Repositories;
+using System.Runtime.CompilerServices;
 
 namespace NZWalks.API.Controllers
 {
@@ -20,7 +22,7 @@ namespace NZWalks.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllRegions()
+        public async Task<IActionResult> GetAllRegionsAsync()
         {
             var regions = await regionsRepostory.GetAllAsync();
 
@@ -29,5 +31,103 @@ namespace NZWalks.API.Controllers
             var dto = mapper.Map<List<Models.DTO.Region>>(regions);
             return Ok(dto);
         }
+
+        [HttpGet]
+        [Route("{id:guid}")] // Esto restrigi ya que definimos el tipo 
+        [ActionName("GetRegionAsync")] //esto para llamarlo en salvar
+        public async Task<IActionResult> GetRegionAsync(Guid id)
+        {
+            var region = await regionsRepostory.GetAsync(id);
+            var dto = mapper.Map<Models.DTO.Region>(region);
+            return Ok(dto);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddRegionAsync(AddRegionRequest addRegion)
+        {
+            //Request(DTO) to domain Model
+            Models.Domain.Region region = new()
+            {
+                Code = addRegion.Code,
+                Area = addRegion.Area,
+                Lat = addRegion.Lat,
+                Long = addRegion.Long,
+                Name = addRegion.Name,
+                Population = addRegion.Population,
+            };
+
+            // Pass details to Repository
+            region = await regionsRepostory.AddAsync(region);
+
+            // Convert bact to DTO
+            Models.Domain.Region regionDto = new()
+            {
+                Id = region.Id,
+                Code = region.Code,
+                Area = region.Area,
+                Lat = region.Lat,
+                Long = region.Long,
+                Name = region.Name,
+                Population = region.Population,
+            };
+
+            return CreatedAtAction(nameof(GetRegionAsync), new { id = regionDto.Id }, regionDto);
+        }
+
+        [HttpDelete]
+        [Route("{id:guid}")] // Esto restrigi ya que definimos el tipo 
+        public async Task<IActionResult> DeleteRegionAsync(Guid id)
+        {
+            //Get Region from de database
+            var deleteRegion = await regionsRepostory.DeleteAsync(id);
+
+            //If not found that
+            if (deleteRegion == null)
+            {
+                return NotFound();
+            }
+
+            // Convert DTO
+            Models.Domain.Region regionDto = new()
+            {
+                Code = deleteRegion.Code,
+                Area = deleteRegion.Area,
+                Lat = deleteRegion.Lat,
+                Long = deleteRegion.Long,
+                Name = deleteRegion.Name,
+                Population = deleteRegion.Population,
+            };
+
+            //Return Ok Response
+            return Ok(regionDto);
+        }
+
+        //[HttpDelete]
+        //[Route("{id:guid}")]
+        //public async Task<IActionResult> UpdateRegionAsync([FromRoute] Guid id, [FromBody] UpdateRegionRequest updateRegionRequest)
+        //{
+        //    //Convert DTO to Domain Model
+        //    Models.Domain.Region regionDto = new()
+        //    {
+        //        Code = updateRegionRequest.Code,
+        //        Area = updateRegionRequest.Area,
+        //        Lat = updateRegionRequest.Lat,
+        //        Long = updateRegionRequest.Long,
+        //        Name = updateRegionRequest.Name,
+        //        Population = updateRegionRequest.Population,
+        //    };
+
+        //    //Update Region using Repository
+
+        //    //if null then notFound
+
+        //    //Convert Domain to back DTO
+
+        //    //return Ok Response. 
+
+        //    return NotFound();
+        //}
+
     }
 }
