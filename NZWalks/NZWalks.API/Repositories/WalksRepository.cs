@@ -1,38 +1,73 @@
-﻿using NZWalks.API.Models.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using NZWalks.API.Data;
+using NZWalks.API.Models.Domain;
 using NZWalks.API.Repositories.Interfaces;
 
 namespace NZWalks.API.Repositories
 {
     public class WalksRepository : IWalkRepository
     {
-        public Task<Region> AddAsync(Region region)
+
+        private readonly NZWalksDbContext nZWalksDbContext;
+
+        public WalksRepository(NZWalksDbContext nZWalksDbContext)
         {
-            throw new NotImplementedException();
+            this.nZWalksDbContext = nZWalksDbContext;
         }
 
-        public Task<Region> DeleteAsync(Guid id)
+        public async Task<Walk> AddAsync(Walk walk)
         {
-            throw new NotImplementedException();
+            // Assign New ID
+            walk.Id = Guid.NewGuid();
+            await nZWalksDbContext.Walks.AddAsync(walk);
+            await nZWalksDbContext.SaveChangesAsync();
+            return walk;
         }
 
-        public IEnumerable<Walk> GetAll()
+        public async Task<Walk> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var existingWalk = await nZWalksDbContext.Walks.FindAsync(id);
+
+            if (existingWalk == null)
+            {
+                return null;
+            }
+
+            nZWalksDbContext.Walks.Remove(existingWalk);
+            await nZWalksDbContext.SaveChangesAsync();
+            return existingWalk;
         }
 
-        public Task<IEnumerable<Walk>> GetAllAsync()
+        public async Task<IEnumerable<Walk>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await nZWalksDbContext.Walks.ToListAsync();
         }
 
-        public Task<Region> GetAsync(Guid id)
+        public async Task<Walk> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
+            return await nZWalksDbContext.Walks
+                .Include(x => x.Region)
+                .Include(x => x.WalkDifficulty)
+                .FirstOrDefaultAsync(x => x.Id == id);
+#pragma warning restore CS8619 // Nullability of reference types in value doesn't match target type.
         }
 
-        public Task<Region> UpdateAsync(Guid id, Region region)
+        public async Task<Walk> UpdateAsync(Guid id, Models.Domain.Walk walk)
         {
-            throw new NotImplementedException();
+            var existingWalk = await nZWalksDbContext.Walks.FindAsync(id);
+
+            if (existingWalk != null)
+            {
+                existingWalk.Length = walk.Length;
+                existingWalk.Name = walk.Name;
+                existingWalk.WalkDifficultyId = walk.WalkDifficultyId;
+                existingWalk.RegionId = walk.RegionId;
+                await nZWalksDbContext.SaveChangesAsync();
+                return existingWalk;
+            }
+
+            return null;
         }
     }
 }

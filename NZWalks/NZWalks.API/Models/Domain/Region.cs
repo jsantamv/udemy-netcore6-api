@@ -10,6 +10,6 @@
         public double Long { get; set; }
         public long Population { get; set; }
 
-        public IEnumerable<Walk> Walks { get; set; }
+        //public IEnumerable<Walk> Walks { get; set; }
     }
 }

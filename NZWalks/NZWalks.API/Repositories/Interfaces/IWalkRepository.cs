@@ -4,16 +4,10 @@ namespace NZWalks.API.Repositories.Interfaces
 {
     public interface IWalkRepository
     {
-        IEnumerable<Walk> GetAll();
-
         Task<IEnumerable<Walk>> GetAllAsync();
-
-        Task<Region> GetAsync(Guid id);
-
-        Task<Region> AddAsync(Region region);
-
-        Task<Region> UpdateAsync(Guid id, Region region);
-
-        Task<Region> DeleteAsync(Guid id);
+        Task<Walk> GetAsync(Guid id);
+        Task<Walk> AddAsync(Walk walk);
+        Task<Walk> UpdateAsync(Guid id, Walk walk);
+        Task<Walk> DeleteAsync(Guid id);
     }
 }
