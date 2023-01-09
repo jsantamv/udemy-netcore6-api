@@ -5,7 +5,7 @@ using NZWalks.API.Repositories.Interfaces;
 
 namespace NZWalks.API.Repositories
 {
-    public class RegionsRepostory : IRegionsRepostory
+    public class RegionsRepostory : IRegionRepository
     {
         private readonly NZWalksDbContext _nZWalksDbContext;
 

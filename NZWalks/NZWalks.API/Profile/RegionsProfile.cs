@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Routing.Constraints;
-using NZWalks.API.Models.DTO.Region;
+using NZWalks.API.Models.DTO;
 
 namespace NZWalks.API.Profile
 {
