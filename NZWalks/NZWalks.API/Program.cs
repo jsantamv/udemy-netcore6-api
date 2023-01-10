@@ -40,25 +40,24 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+builder.Services.AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Program>());
+
 //We create de Connetion to SQL Server
 builder.Services.AddDbContext<NZWalksDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("NZWalksConnStr"));
 });
 
-builder.Services.AddScoped<IRegionRepository, RegionsRepostory>();
-builder.Services.AddScoped<IWalkRepository, WalksRepository>();
-builder.Services.AddScoped<IWalkRepository,WalksRepository>();
+builder.Services.AddScoped<IRegionRepository, RegionRepository>();
+builder.Services.AddScoped<IWalkRepository, WalkRepository>();
 builder.Services.AddScoped<IWalkDifficultyRepository, WalkDifficultyRepository>();
-builder.Services.AddFluentValidation(options => options.RegisterValidatorsFromAssemblyContaining<Program>());
-
 builder.Services.AddScoped<ITokenHandler, NZWalks.API.Repositories.TokenHandler>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 //Automaper Inject
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
-var app = builder.Build();
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -73,6 +72,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     });
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

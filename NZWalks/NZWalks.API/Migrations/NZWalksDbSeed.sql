@@ -30,3 +30,5 @@ INSERT INTO Walks (Id, Name, Length, WalkDifficultyId, RegionId)
 VALUES ('4c2b95e0-2022-4a8f-b537-eb3a32786b06', 'Mt Te Aroha To Wharawhara Track Walk', 32 , '30f96ef9-7b45-42f7-9fab-05a70e7fc394', '68c2ab66-c5eb-40b6-81e0-954456d06bba');
 INSERT INTO Walks (Id, Name, Length, WalkDifficultyId, RegionId)
 VALUES ('a1066e97-c7c8-4aee-905b-61bb31d82bfb', 'Rainbow Mountain Reserve Walk', 3.5 , 'a1066e97-c7c8-4aee-905b-61bb31d82bfb', '68c2ab66-c5eb-40b6-81e0-954456d06bba');
+
+

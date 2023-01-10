@@ -5,11 +5,11 @@ using NZWalks.API.Repositories.Interfaces;
 
 namespace NZWalks.API.Repositories
 {
-    public class RegionsRepostory : IRegionRepository
+    public class RegionRepository : IRegionRepository
     {
         private readonly NZWalksDbContext _nZWalksDbContext;
 
-        public RegionsRepostory(NZWalksDbContext nZWalksDbContext)
+        public RegionRepository(NZWalksDbContext nZWalksDbContext)
         {
             this._nZWalksDbContext = nZWalksDbContext;
         }
