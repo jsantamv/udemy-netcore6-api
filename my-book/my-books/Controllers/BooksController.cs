@@ -8,12 +8,12 @@ namespace my_books.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookController : Controller
+    public class BooksController : Controller
     {
 
         public BooksServices booksServices;
 
-        public BookController(BooksServices booksServices)
+        public BooksController(BooksServices booksServices)
         {
             this.booksServices = booksServices;
         }

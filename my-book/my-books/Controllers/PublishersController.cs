@@ -10,14 +10,14 @@ namespace my_books.Controllers
     public class PublishersController : Controller
     {
 
-        public AuthorsService publishersService;
+        public PublishersService publishersService;
 
         public PublishersController(PublishersService publishersService)
         {
             this.publishersService = publishersService;
         }
 
-        [HttpPost("add-book")]
+        [HttpPost("add-service")]
         public IActionResult Add([FromBody] PublishersVM publishersVM)
         {
             publishersService.Add(publishersVM);

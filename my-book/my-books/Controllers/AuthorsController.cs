@@ -6,22 +6,20 @@ namespace my_books.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorController : Controller
+    public class AuthorsController : Controller
     {
-
         public AuthorsService authorsService;
 
-        public AuthorController(AuthorsService authorsService)
+        public AuthorsController(AuthorsService authorsService)
         {
             this.authorsService = authorsService;
         }
 
-        [HttpPost("add-book")]
+        [HttpPost("add-author")]
         public IActionResult Add([FromBody] AuthorVM authorVM)
         {
             authorsService.Add(authorVM);
             return Ok(authorVM);
         }
-
     }
 }
