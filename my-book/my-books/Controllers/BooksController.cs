@@ -24,7 +24,7 @@ namespace my_books.Controllers
         /// <param name="book">bookvm</param>
         /// <returns>book created</returns>
         [HttpPost("add-book")]
-        public IActionResult AddBook([FromBody] BookVM book)
+        public IActionResult Add([FromBody] BookVM book)
         {
             booksServices.AddBook(book);
             return Ok(book);

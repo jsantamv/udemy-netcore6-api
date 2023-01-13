@@ -24,7 +24,9 @@ namespace my_books
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            ConnectionString = Configuration.GetConnectionString("ConnStringDocker");
+            //ConnectionString = Configuration.GetConnectionString("ConnStringDocker");
+            ConnectionString = Configuration.GetConnectionString("DefaultConnectionString2");
+
         }
 
 
@@ -42,6 +44,8 @@ namespace my_books
 
             //Configure the services
             services.AddTransient<BooksServices>();
+            services.AddTransient<AuthorsService>();
+            services.AddTransient<PublishersService>();
 
             services.AddSwaggerGen(c =>
             {
