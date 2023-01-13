@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace my_books.Data.ViewModels
 {
@@ -10,8 +11,10 @@ namespace my_books.Data.ViewModels
         public DateTime? DateRead { get; set; }
         public int? Rate { get; set; }
         public string Genere { get; set; }
-        public string Author { get; set; }
         public string CoverUrl { get; set; }
         public DateTime DateAdded { get; set; }
+
+        public int PubliserId { get; set; }
+        public List<int> AuthorIds { get; set; }
     }
 }

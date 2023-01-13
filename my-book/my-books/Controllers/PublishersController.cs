@@ -17,7 +17,7 @@ namespace my_books.Controllers
             this.publishersService = publishersService;
         }
 
-        [HttpPost("add-service")]
+        [HttpPost("add")]
         public IActionResult Add([FromBody] PublishersVM publishersVM)
         {
             publishersService.Add(publishersVM);

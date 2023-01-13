@@ -23,7 +23,6 @@ namespace my_books.Data
                         DateRead = DateTime.Now.AddDays(-11),
                         Rate = 4,
                         Genere = "Biography",
-                        Author = "John Santmary",
                         CoverUrl = "helloworld.com",
                         DateAdded = DateTime.Now
                     },
@@ -33,7 +32,6 @@ namespace my_books.Data
                         Description = "Second Book on library",
                         IsRead = false,
                         Genere = "Suspense",
-                        Author = "John Santmary",
                         CoverUrl = "helloworldw.com",
                         DateAdded = DateTime.Now
                     });

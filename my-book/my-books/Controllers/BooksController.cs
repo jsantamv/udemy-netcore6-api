@@ -23,10 +23,10 @@ namespace my_books.Controllers
         /// </summary>
         /// <param name="book">bookvm</param>
         /// <returns>book created</returns>
-        [HttpPost("add-book")]
+        [HttpPost("addWithAuthors")]
         public IActionResult Add([FromBody] BookVM book)
         {
-            booksServices.AddBook(book);
+            booksServices.AddBookWthiAuthors(book);
             return Ok(book);
         }
 
