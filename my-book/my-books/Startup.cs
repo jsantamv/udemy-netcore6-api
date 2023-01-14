@@ -25,7 +25,7 @@ namespace my_books
         {
             Configuration = configuration;
             //ConnectionString = Configuration.GetConnectionString("ConnStringDocker");
-            ConnectionString = Configuration.GetConnectionString("DefaultConnectionString2");
+            ConnectionString = Configuration.GetConnectionString("ConnStringDocker");
 
         }
 
