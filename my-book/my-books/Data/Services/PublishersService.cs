@@ -15,7 +15,7 @@ namespace my_books.Data.Services
             _context = appDbContext;
         }
 
-        public void Add(PublishersVM publisher)
+        public Publisher Add(PublishersVM publisher)
         {
             Publisher _publisher = new()
             {
@@ -24,7 +24,11 @@ namespace my_books.Data.Services
 
             _context.Publishers.Add(_publisher);
             _context.SaveChanges();
+
+            return _publisher;
         }
+
+        public Publisher GetPublisherById(int id) => _context.Publishers.Find(id);
 
         public PublishersBooksWithAuthorsVM GetPublisherData(int publisherId)
         {
@@ -50,6 +54,8 @@ namespace my_books.Data.Services
                 _context.Publishers.Remove(publisher);
                 _context.SaveChanges();
             }
+            else
+                throw new Exception($" Does not exist id {id}");
         }
     }
 }
