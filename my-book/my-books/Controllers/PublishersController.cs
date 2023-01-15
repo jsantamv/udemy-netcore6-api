@@ -24,5 +24,12 @@ namespace my_books.Controllers
             return Ok(publishersVM);
         }
 
+        [HttpGet("GetPublisherBookWithAuthors/{id}")]
+        public IActionResult GetPublisherBookWithAuthors(int id)
+        {
+            var _response = publishersService.GetPublisherData(id);
+            return Ok(_response);
+        }
+
     }
 }

@@ -26,13 +26,19 @@ namespace my_books.Data.Services
             _context.SaveChanges();
         }
 
-        // public PublishersBooksWithAuthorsVM GetPublisherData(int publisherId)
-        // {
-        //     var _publisher = _context.Publishers.Where(x => x.PublisherId == publisherId)
-        //     .Select(n=> new PublishersBooksWithAuthorsVM)
-        //     {
-        //         Name = n.Name,
-        //     }
-        // }
+        public PublishersBooksWithAuthorsVM GetPublisherData(int publisherId)
+        {
+            var _publisher = _context.Publishers.Where(x => x.Id == publisherId)
+            .Select(n => new PublishersBooksWithAuthorsVM(){
+                Name = n.Name,
+                BookAuthors = n.Books.Select(x => new BookAuthorVM() 
+                {
+                    BookName = x.Title,
+                    BookAuthors = x.Book_Authors.Select(n => n.Author.Name).ToList()
+                }).ToList()
+            }).FirstOrDefault();
+
+            return _publisher;
+        }
     }
 }
