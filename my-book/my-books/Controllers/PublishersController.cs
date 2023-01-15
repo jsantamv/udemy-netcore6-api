@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using my_books.Data.Models;
 using my_books.Data.Services;
 using my_books.Data.ViewModels;
+using my_books.Exceptions;
 
 namespace my_books.Controllers
 {
@@ -21,9 +22,21 @@ namespace my_books.Controllers
         [HttpPost("add")]
         public IActionResult Add([FromBody] PublishersVM publishersVM)
         {
-             var newPublisher = publishersService.Add(publishersVM);
-            // return Ok(publishersVM);
-            return Created(nameof(Add), newPublisher);
+            try
+            {
+                var newPublisher = publishersService.Add(publishersVM);
+                // return Ok(publishersVM);
+                return Created(nameof(Add), newPublisher);
+            }
+            catch (PublisherNameException ex)
+            {
+                return BadRequest($"{ex.Message}, Publisher name: {ex.PublisherName}");
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
         }
 
 
@@ -31,7 +44,7 @@ namespace my_books.Controllers
         public IActionResult GetPublisherById(int id)
         {
             var _response = publishersService.GetPublisherById(id);
-            if(_response != null)
+            if (_response != null)
                 return Ok(_response);
             else
                 return NotFound();
@@ -41,7 +54,7 @@ namespace my_books.Controllers
         public IActionResult GetPublisherBookWithAuthors(int id)
         {
             var _response = publishersService.GetPublisherData(id);
-            if(_response != null)
+            if (_response != null)
                 return Ok(_response);
             else
                 return NotFound();
@@ -56,7 +69,7 @@ namespace my_books.Controllers
                 return Ok();
             }
             catch (Exception ex)
-            {   
+            {
                 return BadRequest(ex.Message);
             }
         }

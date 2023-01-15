@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using my_books.Data.Models;
 using my_books.Data.ViewModels;
+using my_books.Exceptions;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace my_books.Data.Services
 {
@@ -17,6 +19,9 @@ namespace my_books.Data.Services
 
         public Publisher Add(PublishersVM publisher)
         {
+
+            if (StringStartsWithNumber(publisher.Name)) throw new PublisherNameException("Name starts with number", publisher.Name);
+
             Publisher _publisher = new()
             {
                 Name = publisher.Name
@@ -33,9 +38,10 @@ namespace my_books.Data.Services
         public PublishersBooksWithAuthorsVM GetPublisherData(int publisherId)
         {
             var _publisher = _context.Publishers.Where(x => x.Id == publisherId)
-            .Select(n => new PublishersBooksWithAuthorsVM(){
+            .Select(n => new PublishersBooksWithAuthorsVM()
+            {
                 Name = n.Name,
-                BookAuthors = n.Books.Select(x => new BookAuthorVM() 
+                BookAuthors = n.Books.Select(x => new BookAuthorVM()
                 {
                     BookName = x.Title,
                     BookAuthors = x.Book_Authors.Select(n => n.Author.Name).ToList()
@@ -57,5 +63,8 @@ namespace my_books.Data.Services
             else
                 throw new Exception($" Does not exist id {id}");
         }
+
+        private bool StringStartsWithNumber(string name) => (Regex.IsMatch(name, @"^\d"));
+
     }
 }
