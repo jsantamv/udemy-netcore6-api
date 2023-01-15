@@ -21,5 +21,12 @@ namespace my_books.Controllers
             authorsService.Add(authorVM);
             return Ok(authorVM);
         }
+
+        [HttpPost("getWithBooks/{id}")]
+        public IActionResult GetWithBooks(int id)
+        {
+            var author = authorsService.GetAuthorWithBookVM(id);
+            return Ok(author);
+        }
     }
 }
