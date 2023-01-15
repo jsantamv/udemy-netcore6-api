@@ -2,6 +2,7 @@
 using my_books.Data.Models;
 using my_books.Data.ViewModels;
 using System;
+using System.Linq;
 
 namespace my_books.Data.Services
 {
@@ -24,5 +25,14 @@ namespace my_books.Data.Services
             _context.Publishers.Add(_publisher);
             _context.SaveChanges();
         }
+
+        // public PublishersBooksWithAuthorsVM GetPublisherData(int publisherId)
+        // {
+        //     var _publisher = _context.Publishers.Where(x => x.PublisherId == publisherId)
+        //     .Select(n=> new PublishersBooksWithAuthorsVM)
+        //     {
+        //         Name = n.Name,
+        //     }
+        // }
     }
 }
