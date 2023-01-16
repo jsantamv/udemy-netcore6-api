@@ -19,6 +19,22 @@ namespace my_books.Controllers
             this.publishersService = publishersService;
         }
 
+
+        [HttpGet("getAll")]
+        public IActionResult GetAllPublisher(string sortBy, string searchString, int pageNumber)
+        {
+            try
+            {
+                var restul = publishersService.GetAllPublisher(sortBy, searchString, pageNumber);
+                return Ok(restul);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         [HttpPost("add")]
         public IActionResult Add([FromBody] PublishersVM publishersVM)
         {
