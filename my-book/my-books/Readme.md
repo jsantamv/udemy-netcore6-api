@@ -61,3 +61,6 @@ Serilog: Es una forma mas de almacenar el Log.
     - MongoDb
     - AmazonS2
     - AzureBlobStorage.
+
+paquete para serilgo
+`dotnet add package Serilog.AspNetCore`
