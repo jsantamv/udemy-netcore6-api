@@ -17,3 +17,22 @@ Para realizar una miggracion por medio de los comandos
 y para actualizar la base de datos utilizamos en el siguiente comando
 
 `dotnet ef database update`
+
+##Versioning
+
+Esta forma podemos personalizar por medio da la URL la version que se esta utilizando.
+
+`csharp
+    [ApiVersion("2.0")]    
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiController]
+    public class TestController : Controller
+    {
+        [HttpGet("GetData")]
+
+        public IActionResult Get()
+        {
+            return Ok("This test v2");
+        }
+    }
+`

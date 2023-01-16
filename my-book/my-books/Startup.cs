@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,6 +44,20 @@ namespace my_books
             services.AddTransient<BooksServices>();
             services.AddTransient<AuthorsService>();
             services.AddTransient<PublishersService>();
+
+            //Se define la version del API a trabajar
+            //si esta no estra previamente defenida
+            services.AddApiVersioning(config =>
+            {
+                config.DefaultApiVersion = new ApiVersion(1, 0);
+                config.AssumeDefaultVersionWhenUnspecified = true;
+
+                //esta parte se coloca en el header de postman => custom-version-header
+                //config.ApiVersionReader = new HeaderApiVersionReader("custom-version-header");
+
+                //HTTP Media-Type based versioning
+                config.ApiVersionReader = new MediaTypeApiVersionReader();
+            });
 
             services.AddSwaggerGen(c =>
             {

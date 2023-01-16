@@ -12,8 +12,8 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      //"launchUrl": "api/Publishers/getAll",
-      "launchUrl": "swagger",
+      "launchUrl": "api/test/getdata",
+      //"launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
