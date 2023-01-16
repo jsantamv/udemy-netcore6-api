@@ -26,6 +26,7 @@ namespace my_books.Controllers
         [HttpGet("getAll")]
         public IActionResult GetAllPublisher(string sortBy, string searchString, int pageNumber)
         {
+          
             try
             {
                 logger.LogInformation("This is just a log in ...");

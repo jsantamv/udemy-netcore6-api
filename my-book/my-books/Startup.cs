@@ -6,10 +6,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using my_books.Data;
 using my_books.Data.Services;
 using my_books.Exceptions;
+using mybooks.Migrations;
 
 namespace my_books
 {
@@ -44,6 +46,7 @@ namespace my_books
             services.AddTransient<BooksServices>();
             services.AddTransient<AuthorsService>();
             services.AddTransient<PublishersService>();
+            services.AddTransient<LogsService>();
 
             //Se define la version del API a trabajar
             //si esta no estra previamente defenida
@@ -66,7 +69,7 @@ namespace my_books
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -82,8 +85,8 @@ namespace my_books
             app.UseAuthorization();
 
             //Exception Handling
-            //app.ConfigureBuildInExceptionHandler();
-            app.ConfigureCustomExceptionHandler();
+            app.ConfigureBuildInExceptionHandler(loggerFactory);
+            //app.ConfigureCustomExceptionHandler();
 
 
             app.UseEndpoints(endpoints =>
