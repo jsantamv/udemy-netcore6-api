@@ -36,3 +36,28 @@ Esta forma podemos personalizar por medio da la URL la version que se esta utili
         }
     }
 `
+
+
+## Logging
+
+Microsoft.Extenxions.Logging
+IloggerFActory
+
+Serilog: Es una forma mas de almacenar el Log.  
+
+>> logLevel
+        - trace
+        - debug
+        - information
+        - warning
+        - Error
+        - Critical
+        - None
+
+>> Sinks: Destination
+    - Console
+    - File
+    - MSSqlServer
+    - MongoDb
+    - AmazonS2
+    - AzureBlobStorage.

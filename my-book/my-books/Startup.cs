@@ -56,7 +56,7 @@ namespace my_books
                 //config.ApiVersionReader = new HeaderApiVersionReader("custom-version-header");
 
                 //HTTP Media-Type based versioning
-                config.ApiVersionReader = new MediaTypeApiVersionReader();
+                //config.ApiVersionReader = new MediaTypeApiVersionReader();
             });
 
             services.AddSwaggerGen(c =>
